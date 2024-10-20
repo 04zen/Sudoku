@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="sudoku.js" defer></script>
+</head>
+<body>
+    <!-- Header with Solve, Reset buttons, Timer, and Dark Mode Toggle -->
+    <div id="header">
+        <div class="button-container">
+            <button id="solve-btn">Solve</button><br>
+            <button id="reset-btn">Reset</button><br>
+            <button id="toggle-theme-btn">Toggle Dark Mode</button>
+        </div>
+        <h1>Sudoku</h1>
+        <div id="timer">Time: 00:00</div>
+    </div>
+    
+    <hr>
+
+    <div id="errors-container">
+        <div id="errors">Errors: 0</div>
+    </div>
+
+    <!-- 9x9 board -->
+    <div id="board"></div>
+
+    <br>
+
+    <div id="digits"></div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+/* General Body Styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Header Styles */
+#header {
+  display: flex;
+  justify-content: space-between; /* Spread elements across the header */
+  align-items: center;
+  width: 90%; /* Adjust width as needed */
+  margin: 20px auto; /* Center the header horizontally */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#header h1 {
+  margin: 0;
+  flex-grow: 1; /* Allow the title to take up remaining space */
+  text-align: center;
+}
+
+#timer {
+  font-size: 18px;
+  color: gray;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text color */
+}
+
+#header.dark-mode {
+  background-color: #1e1e1e; /* Darker header */
+}
+
+#timer.dark-mode,
+#errors.dark-mode {
+  color: #e0e0e0; /* Light text for timer and errors */
+}
+
+.button-container button {
+  border: none;
+  color: white;
+  background-color: coral;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+/* Button Styles for Dark Mode */
+#solve-btn.dark-mode,
+#reset-btn.dark-mode,
+#toggle-theme-btn.dark-mode {
+  background-color: #ff5722; /* Button color for dark mode */
+}
+
+/* Button Hover Effects */
+#solve-btn:hover,
+#reset-btn:hover,
+#toggle-theme-btn:hover {
+  background-color: darkred;
+}
+
+hr {
+  width: 500px;
+  margin: 10px auto;
+}
+
+/* Errors Section */
+#errors-container {
+  margin-bottom: 10px;
+}
+
+#errors {
+  color: coral;
+}
+
+/* Board Styles */
+#board {
+  width: 450px;
+  height: 450px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tile {
+  width: 48px;
+  height: 48px;
+  border: 1px solid lightgray;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Dark Mode Tile Styles */
+.tile.dark-mode {
+  background-color: #212121; /* Dark tile background */
+  color: #e0e0e0; /* Light tile text */
+}
+
+.tile-start {
+  background-color: whitesmoke;
+}
+
+.horizontal-line {
+  border-bottom: 1px solid black;
+}
+
+.vertical-line {
+  border-right: 1px solid black;
+}
+
+/* Digits Section */
+#digits {
+  width: 450px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.number {
+  width: 44px;
+  height: 44px;
+  border: 1px solid black;
+  margin: 2px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f0f0f0; /* Light background for numbers */
+}
+
+/* Dark Mode Number Styles */
+.number.dark-mode {
+  background-color: #424242; /* Dark background for numbers */
+  color: #e0e0e0; /* Light text color */
+}
+
+.number-selected {
+  background-color: #ff9800; /* Highlight color for selected number */
+}
+
+/* Solved Tile Styles */
+.tile-solved {
+  background-color: #4caf50; /* Color for solved tiles */
+}
