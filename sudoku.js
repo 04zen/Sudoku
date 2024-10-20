@@ -1,10 +1,11 @@
 let numSelected = null;
 let errors = 0;
-let timer; 
+let timer; // Store the timer interval
 let seconds = 0;
 let gameStarted = false; // Track if the timer has started
 
 const gameSets = [
+
     {
         board: [
             "--74916-5",
@@ -29,33 +30,36 @@ const gameSets = [
             "812945763"
         ]
     },
+
     {
         board: [
-            "5----7---",
-            "---18----",
-            "9--3---5",
-            "3--4-1--",
-            "--7--6--",
-            "--2-5--8",
-            "7---4--2",
-            "----15--",
-            "---3----"
+            "--6513---",
+            "---9-4-36",
+            "3-2-6--1-",
+            "-63------",
+            "48--7-39-",
+            "--9-3--65",
+            "-----7---",
+            "---64----",
+            "657--192-"
         ],
         solution: [
-            "582937461",
-            "643185297",
-            "917362845",
-            "394671528",
-            "275948613",
-            "861253974",
-            "738614295",
-            "296715348",
-            "415329786"
+            "896513247",
+            "571924836",
+            "342768519",
+            "263459781",
+            "485176392",
+            "719832465",
+            "134297658",
+            "928645173",
+            "657381924"
         ]
     }
 ];
 
-let currentGame; 
+    
+
+let currentGame; // Variable to store the current game set
 
 window.onload = function() {
     setGame();
@@ -65,14 +69,15 @@ window.onload = function() {
 };
 
 function setGame() {
-    
+    // Reset errors and UI
     document.getElementById("errors").innerText = "Errors: 0";
     errors = 0;
 
+    // Randomly select a game set
     const randomIndex = Math.floor(Math.random() * gameSets.length);
-    currentGame = gameSets[randomIndex]; 
+    currentGame = gameSets[randomIndex]; // Get the selected game set
 
-    // number selectors (1-9)
+    // Create number selectors (1-9)
     for (let i = 1; i <= 9; i++) {
         let number = document.createElement("div");
         number.id = i;
@@ -83,7 +88,7 @@ function setGame() {
         document.getElementById("digits").appendChild(number);
     }
 
-    //  9x9 board
+    // Create the 9x9 board
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             let tile = document.createElement("div");
@@ -116,10 +121,12 @@ function selectTile() {
         if (this.innerText !== "") return; // Prevent overwriting existing tiles
 
         let [r, c] = this.id.split("-").map(Number);
-        //post-solve
+
+        // Place the selected number if it is correct
         if (currentGame.solution[r][c] === numSelected.id) {
-            this.innerText = numSelected.id; 
-            this.classList.add("tile-solved"); 
+            this.innerText = numSelected.id; // Place the number in the tile
+            this.classList.add("tile-solved"); // Add solved style
+            // Check if the board is solved after placing a number
             if (checkIfSolved()) {
                 clearInterval(timer); // Stop the timer
                 alert("Congratulations! You've solved the puzzle!");
@@ -135,7 +142,7 @@ function selectTile() {
 function startTimerOnFirstAction() {
     if (!gameStarted) {
         gameStarted = true;
-        timer = setInterval(updateTimer, 1000); 
+        timer = setInterval(updateTimer, 1000); // Start the timer
     }
 }
 
@@ -147,13 +154,13 @@ function updateTimer() {
         `Time: ${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-// board solving logic (backtracking )
+// Solve the board using backtracking
 function solveBoard() {
     const copyOfBoard = currentGame.board.map(row => row.split(''));
     if (solve(copyOfBoard, 0, 0)) {
         console.log("Board solved!");
         updateUI(copyOfBoard);
-        clearInterval(timer); 
+        clearInterval(timer); // Stop the timer after solving
         alert("The puzzle has been solved!");
     } else {
         console.log("No solution exists.");
@@ -166,7 +173,7 @@ function solve(board, r, c) {
     if (c == 9) {
         c = 0;
         r++;
-        if (r == 9) return true; 
+        if (r == 9) return true; // Solved
     }
 
     if (board[r][c] != "-") return solve(board, r, c + 1);
@@ -187,16 +194,16 @@ function solve(board, r, c) {
 // Check if the placement is valid
 function isValid(board, row, col, num) {
     for (let i = 0; i < 9; i++) {
-        if (board[row][i] === num || board[i][col] === num) return false; 
+        if (board[row][i] === num || board[i][col] === num) return false; // Check row and column
     }
     let startRow = Math.floor(row / 3) * 3;
     let startCol = Math.floor(col / 3) * 3;
     for (let r = startRow; r < startRow + 3; r++) {
         for (let c = startCol; c < startCol + 3; c++) {
-            if (board[r][c] === num) return false; 
+            if (board[r][c] === num) return false; // Check 3x3 square
         }
     }
-    return true;
+    return true; // Valid placement
 }
 
 // Update UI with solved numbers
@@ -206,7 +213,7 @@ function updateUI(solvedBoard) {
             const tile = document.getElementById(r.toString() + "-" + c.toString());
             if (tile && solvedBoard[r][c] !== "-") {
                 tile.innerText = solvedBoard[r][c];
-                tile.classList.add("tile-solved"); 
+                tile.classList.add("tile-solved"); // Add class to indicate solved tile
             }
         }
     }
@@ -216,11 +223,11 @@ function checkIfSolved() {
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             if (currentGame.solution[r][c] !== document.getElementById(r.toString() + "-" + c.toString()).innerText) {
-                return false; //  if not solved
+                return false; // Return false if not solved
             }
         }
     }
-    return true; // if solved
+    return true; // Return true if solved
 }
 
 function resetGame() {
