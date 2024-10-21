@@ -1,8 +1,8 @@
 let numSelected = null;
 let errors = 0;
-let timer; // Store the timer interval
+let timer;
 let seconds = 0;
-let gameStarted = false; // Track if the timer has started
+let gameStarted = false; // flag for timer 
 
 const gameSets = [
 
@@ -59,7 +59,7 @@ const gameSets = [
 
     
 
-let currentGame; // Variable to store the current game set
+let currentGame; 
 
 window.onload = function() {
     setGame();
@@ -69,13 +69,13 @@ window.onload = function() {
 };
 
 function setGame() {
-    // Reset errors and UI
+    // Reset errors 
     document.getElementById("errors").innerText = "Errors: 0";
     errors = 0;
 
     // Randomly select a game set
     const randomIndex = Math.floor(Math.random() * gameSets.length);
-    currentGame = gameSets[randomIndex]; // Get the selected game set
+    currentGame = gameSets[randomIndex]; 
 
     // Create number selectors (1-9)
     for (let i = 1; i <= 9; i++) {
@@ -124,9 +124,9 @@ function selectTile() {
 
         // Place the selected number if it is correct
         if (currentGame.solution[r][c] === numSelected.id) {
-            this.innerText = numSelected.id; // Place the number in the tile
-            this.classList.add("tile-solved"); // Add solved style
-            // Check if the board is solved after placing a number
+            this.innerText = numSelected.id; 
+            this.classList.add("tile-solved"); 
+            // checking for solved 
             if (checkIfSolved()) {
                 clearInterval(timer); // Stop the timer
                 alert("Congratulations! You've solved the puzzle!");
@@ -154,7 +154,7 @@ function updateTimer() {
         `Time: ${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
-// Solve the board using backtracking
+// board solving (backtracking )
 function solveBoard() {
     const copyOfBoard = currentGame.board.map(row => row.split(''));
     if (solve(copyOfBoard, 0, 0)) {
@@ -168,7 +168,7 @@ function solveBoard() {
     }
 }
 
-// Recursive backtracking algorithm
+// Recursive backtracking 
 function solve(board, r, c) {
     if (c == 9) {
         c = 0;
@@ -182,7 +182,7 @@ function solve(board, r, c) {
         if (isValid(board, r, c, num.toString())) {
             board[r][c] = num.toString(); // Set the number
 
-            if (solve(board, r, c + 1)) return true; // Continue to solve recursively
+            if (solve(board, r, c + 1)) return true; // recurrsion
 
             board[r][c] = "-"; // Reset if not valid
         }
@@ -206,14 +206,14 @@ function isValid(board, row, col, num) {
     return true; // Valid placement
 }
 
-// Update UI with solved numbers
+// updating of Board after a tile is solved 
 function updateUI(solvedBoard) {
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
             const tile = document.getElementById(r.toString() + "-" + c.toString());
             if (tile && solvedBoard[r][c] !== "-") {
                 tile.innerText = solvedBoard[r][c];
-                tile.classList.add("tile-solved"); // Add class to indicate solved tile
+                tile.classList.add("tile-solved"); // Add class --> solved tile
             }
         }
     }
@@ -229,15 +229,15 @@ function checkIfSolved() {
     }
     return true; // Return true if solved
 }
-
+//Restart the game -> timmer reset -> new board(set game)
 function resetGame() {
-    document.getElementById("board").innerHTML = ""; // Clear the board
-    document.getElementById("digits").innerHTML = ""; // Clear the numbers
+    document.getElementById("board").innerHTML = ""; 
+    document.getElementById("digits").innerHTML = ""; 
     numSelected = null; // Reset selected number
-    seconds = 0; // Reset timer
-    clearInterval(timer); // Clear timer
-    gameStarted = false; // Reset game started status
-    setGame(); // Restart the game
+    seconds = 0; 
+    clearInterval(timer); 
+    gameStarted = false; 
+    setGame(); 
 }
 
 function toggleDarkMode() {
