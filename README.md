@@ -1,7 +1,7 @@
 # SUDOKU GAME 
 
 # Live DEMO 
-[sudoku game]  https://04zen.github.io/Sudoku/
+[sudoku game]  https://zenoguy.github.io/Sudoku/
 
 # Instructions 
 - Guess the correct input of a grid.
